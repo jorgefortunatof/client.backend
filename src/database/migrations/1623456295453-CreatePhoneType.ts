@@ -1,30 +1,24 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateClients1623376019097 implements MigrationInterface {
+export class CreatePhoneType1623456295453 implements MigrationInterface {
 	public async up(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.createTable(
 			new Table({
-				name: "cliente",
+				name: "telefone_tipo",
 				columns: [
 					{
 						name: "id",
-						type: "int",
 						isPrimary: true,
+						type: "int",
 					},
 					{
-						name: "cpf",
-						type: "varchar(11)",
-						isNullable: false,
-						isUnique: true,
-					},
-					{
-						name: "nome",
-						type: "varchar(60)",
+						name: "tipo",
+						type: "varchar(40)",
 						isNullable: false,
 					},
 					{
-						name: "email",
-						type: "varchar(100)",
+						name: "whatsapp",
+						type: "bool",
 						isNullable: false,
 					},
 					{
@@ -43,6 +37,6 @@ export class CreateClients1623376019097 implements MigrationInterface {
 	}
 
 	public async down(queryRunner: QueryRunner): Promise<void> {
-		await queryRunner.dropTable("clients");
+		await queryRunner.dropTable("telefone_tipo");
 	}
 }
