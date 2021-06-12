@@ -19,24 +19,24 @@ class ClientPhone {
 	@Column()
 	number: string;
 
-	@Column()
+	@Column({ select: false })
 	phone_type_id: number;
 
 	@ManyToOne(() => PhoneType)
 	@JoinColumn({ name: "phone_type_id" })
 	phoneType: PhoneType;
 
-	@Column()
+	@Column({ select: false })
 	client_id: number;
 
 	@ManyToOne(() => Client)
 	@JoinColumn({ name: "client_id" })
 	client: Client;
 
-	@CreateDateColumn()
+	@CreateDateColumn({ select: false })
 	created_at: Date;
 
-	@UpdateDateColumn()
+	@UpdateDateColumn({ select: false })
 	updated_at: Date;
 }
 

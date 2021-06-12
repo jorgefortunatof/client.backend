@@ -14,7 +14,7 @@ routes.get("/client", async (request, response) => {
 
 	const clientRepository = getRepository(Client);
 	const clientsWithPhones = await clientRepository.find({
-		relations: ["phones"],
+		relations: ["phones", "phones.phoneType"],
 		where: { ...filters },
 	});
 

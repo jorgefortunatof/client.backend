@@ -25,10 +25,10 @@ class Client {
 	@OneToMany(() => ClientPhone, (clientPhone) => clientPhone.client)
 	phones: ClientPhone[];
 
-	@CreateDateColumn()
+	@CreateDateColumn({ select: false })
 	created_at: Date;
 
-	@UpdateDateColumn()
+	@UpdateDateColumn({ select: false })
 	updated_at: Date;
 }
 
