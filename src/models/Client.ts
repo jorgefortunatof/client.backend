@@ -6,16 +6,16 @@ import {
 	UpdateDateColumn,
 } from "typeorm";
 
-@Entity("cliente")
-class Cliente {
-	@PrimaryGeneratedColumn()
+@Entity("client")
+class Client {
+	@PrimaryGeneratedColumn("increment")
 	id: number;
 
 	@Column()
 	cpf: string;
 
 	@Column()
-	nome: string;
+	name: string;
 
 	@Column()
 	email: string;
@@ -27,4 +27,4 @@ class Cliente {
 	updated_at: Date;
 }
 
-export default Cliente;
+export default Client;

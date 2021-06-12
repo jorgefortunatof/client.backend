@@ -4,15 +4,17 @@ export class CreatePhoneType1623456295453 implements MigrationInterface {
 	public async up(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.createTable(
 			new Table({
-				name: "telefone_tipo",
+				name: "phone_type",
 				columns: [
 					{
 						name: "id",
 						isPrimary: true,
 						type: "int",
+						isGenerated: true,
+						generationStrategy: "increment",
 					},
 					{
-						name: "tipo",
+						name: "type",
 						type: "varchar(40)",
 						isNullable: false,
 					},
@@ -37,6 +39,6 @@ export class CreatePhoneType1623456295453 implements MigrationInterface {
 	}
 
 	public async down(queryRunner: QueryRunner): Promise<void> {
-		await queryRunner.dropTable("telefone_tipo");
+		await queryRunner.dropTable("phone_type");
 	}
 }

@@ -6,13 +6,13 @@ import {
 	UpdateDateColumn,
 } from "typeorm";
 
-@Entity("telefone_tipo")
-class TelefoneTipo {
-	@PrimaryGeneratedColumn()
+@Entity("phone_type")
+class PhoneType {
+	@PrimaryGeneratedColumn("increment")
 	id: number;
 
 	@Column()
-	tipo: string;
+	type: string;
 
 	@Column()
 	whatsapp: boolean;
@@ -24,4 +24,4 @@ class TelefoneTipo {
 	updated_at: Date;
 }
 
-export default TelefoneTipo;
+export default PhoneType;

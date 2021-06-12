@@ -9,25 +9,27 @@ export class CreateClientPhone1623456679369 implements MigrationInterface {
 	public async up(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.createTable(
 			new Table({
-				name: "cliente_telefone",
+				name: "client_phone",
 				columns: [
 					{
 						name: "id",
 						type: "int",
 						isPrimary: true,
+						isGenerated: true,
+						generationStrategy: "increment",
 					},
 					{
-						name: "cliente_id",
+						name: "client_id",
 						type: "int",
 						isNullable: false,
 					},
 					{
-						name: "telefone_tipo_id",
+						name: "phone_type_id",
 						type: "int",
 						isNullable: false,
 					},
 					{
-						name: "numero",
+						name: "number",
 						type: "varchar(11)",
 						isNullable: false,
 					},
@@ -46,24 +48,24 @@ export class CreateClientPhone1623456679369 implements MigrationInterface {
 		);
 
 		await queryRunner.createForeignKey(
-			"cliente_telefone",
+			"client_phone",
 			new TableForeignKey({
-				name: "Cliente",
-				columnNames: ["cliente_id"],
+				name: "Client",
+				columnNames: ["client_id"],
 				referencedColumnNames: ["id"],
-				referencedTableName: "cliente",
+				referencedTableName: "client",
 				onDelete: "SET NULL",
 				onUpdate: "CASCADE",
 			})
 		);
 
 		await queryRunner.createForeignKey(
-			"cliente_telefone",
+			"client_phone",
 			new TableForeignKey({
-				name: "TelefoneTipo",
-				columnNames: ["telefone_tipo_id"],
+				name: "PhoneType",
+				columnNames: ["phone_type_id"],
 				referencedColumnNames: ["id"],
-				referencedTableName: "telefone_tipo",
+				referencedTableName: "phone_type",
 				onDelete: "SET NULL",
 				onUpdate: "CASCADE",
 			})
@@ -71,8 +73,8 @@ export class CreateClientPhone1623456679369 implements MigrationInterface {
 	}
 
 	public async down(queryRunner: QueryRunner): Promise<void> {
-		await queryRunner.dropForeignKey("cliente_telefone", "TelefoneTipo");
-		await queryRunner.dropForeignKey("cliente_telefone", "ClienteTelefone");
-		await queryRunner.dropTable("cliente_telefone");
+		await queryRunner.dropForeignKey("client_phone", "PhoneType");
+		await queryRunner.dropForeignKey("client_phone", "ClientPhone");
+		await queryRunner.dropTable("client_phone");
 	}
 }
