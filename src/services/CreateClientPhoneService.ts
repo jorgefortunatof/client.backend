@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 
-import CreatePhoneTypeService from "./CreatePhoneTypeService";
 import ClientPhone from "../models/ClientPhone";
+import PhoneType from "../models/PhoneType";
 
 interface Phone {
 	number: string;
@@ -14,32 +14,40 @@ interface Request {
 	phones: Phone[];
 }
 
-class CreateClientPhonesService {
-	async execute({ client_id, phones }: Request) {
-		const createPhoneTypeService = new CreatePhoneTypeService();
+class CreateClientPhoneService {
+	async execute({ client_id, phones }: Request): Promise<ClientPhone[]> {
+		const phoneTypeRepository = getRepository(PhoneType);
 		const clientPhoneRepository = getRepository(ClientPhone);
 
+		let clientPhones: ClientPhone[] = [];
+
 		for (const phone of phones) {
-			const checkClientPhoneExists = clientPhoneRepository.findOne({
+			const checkClientPhoneExists = await clientPhoneRepository.findOne({
 				where: { number: phone.number, client_id },
 			});
 
 			if (!checkClientPhoneExists) {
-				const newPhoneType = await createPhoneTypeService.execute({
+				const phoneType = phoneTypeRepository.create({
 					type: phone.type,
 					whatsapp: phone.whatsapp,
 				});
 
+				await phoneTypeRepository.save(phoneType);
+
 				const clientPhone = clientPhoneRepository.create({
 					client_id,
-					phone_type_id: newPhoneType.id,
+					phone_type_id: phoneType.id,
 					number: phone.number,
 				});
 
-				await clientPhoneRepository.save(clientPhone);
+				clientPhones.push(clientPhone);
 			}
 		}
+
+		await clientPhoneRepository.save(clientPhones);
+
+		return clientPhones;
 	}
 }
 
-export default CreateClientPhonesService;
+export default CreateClientPhoneService;

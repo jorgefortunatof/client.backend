@@ -4,7 +4,9 @@ import {
 	PrimaryGeneratedColumn,
 	CreateDateColumn,
 	UpdateDateColumn,
+	OneToMany,
 } from "typeorm";
+import ClientPhone from "./ClientPhone";
 
 @Entity("client")
 class Client {
@@ -19,6 +21,9 @@ class Client {
 
 	@Column()
 	email: string;
+
+	@OneToMany(() => ClientPhone, (clientPhone) => clientPhone.client)
+	phones: ClientPhone[];
 
 	@CreateDateColumn()
 	created_at: Date;
