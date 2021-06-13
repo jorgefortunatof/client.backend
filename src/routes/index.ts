@@ -9,13 +9,15 @@ import getFiltersFromQuery from "../utils/getFiltersFromQuery";
 const routes = Router();
 
 routes.get("/client", async (request, response) => {
-	const { name, email, cpf } = request.query;
-	const filters = getFiltersFromQuery({ name, email, cpf });
+	const { filter } = request.query;
+	const where = filter
+		? [{ cpf: filter }, { name: filter }, { email: filter }]
+		: [];
 
 	const clientRepository = getRepository(Client);
 	const clientsWithPhones = await clientRepository.find({
 		relations: ["phones", "phones.phoneType"],
-		where: { ...filters },
+		where: where,
 	});
 
 	return response.json(clientsWithPhones);
