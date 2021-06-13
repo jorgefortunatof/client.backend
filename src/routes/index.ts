@@ -4,7 +4,6 @@ import Client from "../models/Client";
 import CreateClientPhoneService from "../services/CreateClientPhoneService";
 import CreateClienteService from "../services/CreateClientService";
 import UpdateClienteService from "../services/UpdateClientService";
-import getFiltersFromQuery from "../utils/getFiltersFromQuery";
 
 const routes = Router();
 
