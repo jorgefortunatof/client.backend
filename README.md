@@ -1,6 +1,3 @@
-# clients.backend
-Backend of the client application. It´s an application to store clients and phones
-
 ## Como usar
 Executar com comando ``` yarn ```
 
